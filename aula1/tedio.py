@@ -8,5 +8,6 @@ while True:
     sleep(0.05)
     
     if '24' in str(n):
-        print(f'{'-' * 5} Lá ele! {'-' * 5}')
+        print(f'Lá ele! O valor é {n}!')
+        n += 1
         
