@@ -21,3 +21,7 @@ print(values)
 print(f'Seu nome é {values[0]}, você tem {values[1]} anos e nasceu em {values[2]}!')
 
 
+'''
+OBS: Dá pra criar uma lista de tuplas na função, para serem desempacotadas no 'for loop'. não sabia disso! 
+A melhor forma de desenvolvimento com IA é pedindo pra ela fazer o código mais bonito e pythonico possível!
+'''
