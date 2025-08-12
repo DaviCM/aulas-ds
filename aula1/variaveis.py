@@ -1,20 +1,23 @@
-operations = ['Insira seu nome: ', 'Insira sua idade: ', 'Insira sua data de nascimento no formato DD/MM/AAAA: ']
+operations = ['Insira seu nome: ', 'Insira sua idade: ', 'Insira seu ano de nascimento: ']
 values = []
 
-for i in range(3):
-    values.append(input(operations[i]).strip())
-    if len(values) == 3:
-        break
+def PegarValores():
+    for i in range (len(operations)):
+        if 'nome' in operations[i]:
+                a = input(operations[i]).strip()
+                while a.isalpha() != True:
+                    a = input('Por favor, insira apenas letras do alfabeto: ')
+                values.append(a)
+        else:
+                a = input(operations[i]).strip()
+                while a.isnumeric() != True:
+                    a = input('Por favor, insira apenas números inteiros: ')
+                values.append(a)
+    return values
+
+
+PegarValores()
 print(values)
-    
-while i == True:    
-    try:
-        values[1] = int(values[1])
-        i == False
-    except ValueError:
-       values[2] = print('Esse valor para a idade não é inteiro. Insira outro: ')
-
-
 print(f'Seu nome é {values[0]}, você tem {values[1]} anos e nasceu em {values[2]}!')
 
 
