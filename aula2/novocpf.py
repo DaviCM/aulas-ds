@@ -1,6 +1,12 @@
 def novocpf():
     from random import randint
     
+    n = 0
+    strcpf = ''
+    cpf = []
+    val1 = []
+    val2 = []
+    
     def validate(value):
         # Soma os elementos do CPF até então, pega o resto da divisão por 11 e subtrai por 11, de acordo com a fórmula para descobrir o dígito validador.
         validador = 11 - (sum(value) % 11)
@@ -11,12 +17,6 @@ def novocpf():
         else:
             cpf.append(validador)  
 
-
-    n = 0
-    strcpf = ''
-    cpf = []
-    val1 = []
-    val2 = []
     
     # Gera os 9 primeiros dígitos do CPF e a lista de valores para validação do 1° dígito.
     for i in reversed(range(2, 11)):
