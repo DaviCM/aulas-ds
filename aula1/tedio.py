@@ -8,5 +8,5 @@ while True:
     sleep(0.05)
     
     if '24' in str(n):
-        print(f'{'-' * 5} RAAAAAAHHHHH 24 MENTIONED {'-' * 5}')
+        print(f'{'-' * 5} Lá ele! {'-' * 5}')
         
