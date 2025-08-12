@@ -4,7 +4,6 @@ def novocpf():
     def validate(value):
         # Soma os elementos do CPF até então, pega o resto da divisão por 11 e subtrai por 11, de acordo com a fórmula para descobrir o dígito validador.
         validador = 11 - (sum(value) % 11)
-        print(validador)
     
         # 0 é um dígito validador se o resultado do resto e da subtração for maior que 10. Caso contrário, será o próprio resultado.
         if validador >= 10:
