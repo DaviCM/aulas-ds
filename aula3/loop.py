@@ -9,7 +9,7 @@ while True:
     print('3 - Calculadora')
     print('4 - Dados pessoais')
     print('5 - Jogo da Vida')
-    print('6 - ir embora')
+    print('6 - Ir embora')
     opt = int(input('Escolha o que deseja saber hoje: '))
 
     if opt == 1:
