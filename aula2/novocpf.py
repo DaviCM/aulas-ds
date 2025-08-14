@@ -80,8 +80,8 @@ def novocpf():
     # Lógica com list comprehension pra transformar todos os elementos de cpf em str e armazenar
     # na ordem certa na lista, depois unir tudo em uma str.   
     print(f'Seu novo CPF é: {''.join([str(cpf[i]) for i in range(len(cpf))])}')
-    print(f'Seu CPF é valido em: {match_cpf(cpf)}!')
     print(f'Seu novo CPF formatado é: {strcpf}')
+    print(f'Seu CPF é valido em: {match_cpf(cpf)}!')
     print('\n''Boa sorte falsificando sua identidade! (Código penal - Art. 299)')
     
 novocpf()
