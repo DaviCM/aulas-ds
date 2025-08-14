@@ -16,7 +16,7 @@ def novocpf():
         else:
             cpf.append(validador)  
 
-    
+
     def format(cpf):
         # Tenho que declarar 'strcpf' dentro da função, ele não aceita o dado que está fora
         strcpf = ''
@@ -74,13 +74,10 @@ def novocpf():
         n += 1
     validate(val2)
     
-    # Formata o CPF gerado, com pontuação e conversão em STR.
-    strcpf = format(cpf)
-    
     # Lógica com list comprehension pra transformar todos os elementos de cpf em str e armazenar
     # na ordem certa na lista, depois unir tudo em uma str.   
     print(f'Seu novo CPF é: {''.join([str(cpf[i]) for i in range(len(cpf))])}')
-    print(f'Seu novo CPF formatado é: {strcpf}')
+    print(f'Seu novo CPF formatado é: {format(cpf)}')
     print(f'Seu CPF é valido em: {match_cpf(cpf)}!')
     print('\n''Boa sorte falsificando sua identidade! (Código penal - Art. 299)')
     
