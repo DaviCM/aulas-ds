@@ -22,7 +22,6 @@ def novocpf():
             val2.append(cpf[n] * i)
             n += 1
         validate(val2)
-        
 
         # Lógica com list comprehension pra transformar todos os elementos de cpf em str (digito i)
         # e armazenar na ordem certa na lista, depois unir tudo em uma str.
