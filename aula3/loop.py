@@ -91,7 +91,7 @@ while True:
         system('cls')
         continue
 
-    elif option != 's':
+    else:
         print('Já vai tarde.')
         break
 
