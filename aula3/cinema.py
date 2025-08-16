@@ -17,6 +17,7 @@ while quit == False:
         except ValueError:
             print('Valor inválido para a idade. Reiniciando programa.')
             continue
+        
     else:
         pass
     
@@ -28,22 +29,21 @@ while quit == False:
     esc = (int(input('Escola a sala com o filme que quer assistir: ')))
     system('cls')
     
-    if esc >= 1 <= 6:
-
-        if id_cliente < sessions[esc - 1][1]:
-            print('Você não pode assistir ao filme. Escolha um com a classificação adequada.')
-            sleep(1)
-            continue
-            
-        else:
-            print('\n'f'{8 * '-'} Dados da sessão: {8 * '-'} ')
-            print(f'Nome: {nome}')
-            print(f'Sala: {sessions[esc - 1][0]}')
-            print(f'Filme: {sessions[esc - 1][2]}''\n')
-            print(f'Bom filme!')
-            quit = True
-        
-    else:
+    if esc  < 1 or esc > 6:
         print('Valor inválido. Reiniciando programa.')
         continue
+
+    if id_cliente < sessions[esc - 1][1]:
+        print('Você não pode assistir ao filme. Escolha um com a classificação adequada.')
+        sleep(1)
+        continue
+        
+    else:
+        print('\n'f'{8 * '-'} Dados da sessão: {8 * '-'} ')
+        print(f'Nome: {nome}')
+        print(f'Sala: {sessions[esc - 1][0]}')
+        print(f'Filme: {sessions[esc - 1][2]}''\n')
+        print(f'Bom filme!')
+        quit = True
     
+        
