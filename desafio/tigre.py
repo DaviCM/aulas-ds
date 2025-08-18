@@ -16,18 +16,16 @@ while True:
     counter *= xpo
     print(f'Valor multiplicado em: x{(counter):.3f}')
 
-    aposta = aposta * (xpo)
+    aposta *= xpo
     print(f'O valor da aposta é: R${aposta:.2f}')
     sleep(0.1)
     system('cls')
     
-    if randint(0,100000) >= 99000 and counter > 1.1:
+    if randint(0,100000) >= 99000 and counter > 1.05:
         print(f'Valor multiplicado em: x{(counter):.3f}')
         print(f'O valor da aposta é: R${aposta:.2f}')
         print('\n'f'{5 * '-'} VOCÊ PERDEU! OBRIGADO PELO DINHEIRO! {5 * '-'}')
         break
-    else:
-        continue
 
 
 
