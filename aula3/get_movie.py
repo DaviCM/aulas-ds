@@ -13,8 +13,7 @@ def get_movie():
             idade_filme = int(input('Insira a classificação indicativa: ').strip())
             nome_filme = input('Insira o nome do filme: ')
             
-            movie = [room, idade_filme, nome_filme]
-            sessions.append(movie)
+            sessions.append([room, idade_filme, nome_filme])
 
             print('\n'f'{8 * '-'} Filme {i + 1} adicionado! {8 * '-'}')
             sleep(0.2)
