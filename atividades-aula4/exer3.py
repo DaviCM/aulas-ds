@@ -7,9 +7,12 @@ notas = []
 def getInt(value):
     while True:
         try:
-            value = int(input(value))
-            system('cls')
-            return value
+            retValue = int(input(value))
+            if retValue >= 0 and retValue <= 10:
+                system('cls')
+                return retValue
+            else:
+                raise ValueError
 
         except ValueError:
             print('Valor inválido. Tente novamente.')
@@ -21,10 +24,9 @@ def getInt(value):
 while True:
     print(f'{5 * '-'} Bem vindo ao grande gerenciador de notas! {5 * '-'}')
     qtdnotas = getInt('Insira quantas notas esse aluno possui: ')
-
-    
+ 
     for i in range(qtdnotas):
-        nota = getInt(f'Digite a {i + 1}° nota: ')
+        nota = getInt(f'Digite a {i + 1}° nota (0-10): ')
         notas.append(nota)
         
     media = sum(notas) / qtdnotas
