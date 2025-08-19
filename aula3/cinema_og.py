@@ -1,12 +1,13 @@
 from time import sleep
 from os import system
-from get_movie import get_movie
 
 quit = False
 esc = ''
-valid, sessions = get_movie()
 
-if valid == True:
+sessions = [[1, 0, 'Girls und Panzer - Das Finale'], [2, 0, 'Os Incríveis'], [3, 12, 'Os Sensacionais'], 
+[4, 18, 'Red Dead'], [5, 16, 'Karython O Filme'], [6, 14, 'Git: O Hub']]
+
+if len(sessions) > 0:
     while quit == False:
         print('\n'f'{8 * '-'} Bem vindo ao CINEMÁTICO! {8 * '-'}')
         if esc == '':
