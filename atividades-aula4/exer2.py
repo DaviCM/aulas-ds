@@ -14,7 +14,7 @@ def getInt(value):
                 sleep(1)
                 system('cls')
                 continue
-            
+
         else:
             system('cls')
             return value
@@ -26,7 +26,7 @@ values = []
 while True:
     system('cls')
     print(f'{5 * '-'} Bem vindo ao Numeros Infinitos! {5 * '-'}')
-    usernum = getInt(input(f'Digite o {n}° valor ou enter para ver todos: '))
+    usernum = getInt(input(f'Digite o {n}° valor ou enter para ver todos: ').strip())
     
     if usernum != '':
         values.append(usernum)

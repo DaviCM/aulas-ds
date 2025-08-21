@@ -16,7 +16,7 @@ def getInt(value):
 
         except ValueError:
             print('Valor inválido. Tente novamente.')
-            sleep(2)
+            sleep(1)
             system('cls')
             continue
             
@@ -37,7 +37,15 @@ while True:
     
     print(f'A média desse cara é: {media}')
 
-    quit = input('Deseja calcular a média novamente? (n para sair): ')
+    if media >= 7:
+        print('Aprovado.')
+    elif media >= 5 and media < 7:
+        print('Boa recuperação.')
+    else:
+        print('Se ferrou.')
+
+    quit = input('\n''Deseja calcular a média novamente? (n para sair): ')
+
     if quit == 'n':
         system('cls')
         print('Já vai tarde.')
