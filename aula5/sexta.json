@@ -1,0 +1,21 @@
+[
+    {
+    "nome" : "Davi",
+    "idade" : 16,
+    "trabalho" : "aluno"
+    },
+
+    {
+    "nome" : "Hatsune",
+    "idade" : 35,
+    "trabalho" : "e-girl"
+    },
+
+    {
+    "nome" : "Lobo Canindé",
+    "idade" : 6,
+    "trabalho" : "equipe ruim"
+    }
+]
+
+
