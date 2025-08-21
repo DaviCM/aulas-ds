@@ -3,21 +3,21 @@ from time import sleep
 
 def getInt(value):
     while True:
-        try:
-            value = int(input(value))
-            system('cls')
-            return value
-
-        except ValueError:
-            if value == '':
+        if value != '':
+            try:
+                value = int(value)
                 system('cls')
                 return value
-            
-            else:
+
+            except ValueError:
                 print('Valor inválido. Tente novamente.')
                 sleep(1)
                 system('cls')
                 continue
+            
+        else:
+            system('cls')
+            return value
 
 
 n = 1
@@ -26,7 +26,7 @@ values = []
 while True:
     system('cls')
     print(f'{5 * '-'} Bem vindo ao Numeros Infinitos! {5 * '-'}')
-    usernum = getInt(f'Digite o {n}° valor ou enter para ver todos: ')
+    usernum = getInt(input(f'Digite o {n}° valor ou enter para ver todos: '))
     
     if usernum != '':
         values.append(usernum)
