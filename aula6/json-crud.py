@@ -1,5 +1,5 @@
 import json
-from os import system, name
+from os import system, remove, name
 from time import sleep
 
 users = []
@@ -31,7 +31,8 @@ while True:
     print('1 - Cadastrar novo usuário')
     print('2 - Salvar arquivo JSON')
     print('3 - Fazer leitura do JSON')
-    print('4 - Ir embora''\n')
+    print('4 - Deletar arquivo JSON')
+    print('5 - Ir embora''\n')
 
     opt = getInt('Escolha a ação desejada: ')
 
@@ -57,6 +58,7 @@ while True:
             # Ou criar uma outra lista, além da que já existe
             if jsondb == True:
                 with open(f'aula6/{jsondb}.json', 'r', encoding='utf-8') as file:
+                    # Pega os dados antigos, quejá estavam no json, e armazena.
                     old_data = json.load(file)
 
                 # Método extend adiciona todos os elementos de uma lista ao fim de outra. 'append' adicionaria
@@ -66,9 +68,10 @@ while True:
             # Abre o nosso json no formato certo, modo 'a', para adicionar ao arquivo ao invés de sobresvrever. nome dele no código é 'file'.
             with open(f'aula6/{jsondb}.json', 'a', encoding='utf-8') as file:
 
-                # Dump é uma função para salvar um arquivo em json. Parâmetros: users é o que vamos adicionar, edit_json é onde vamos adicionar,
+                # Dump é uma função para salvar um arquivo em json. Parâmetros: users é o que vamos adicionar, old_data é onde vamos adicionar,
                 # ensure_ascii é falso para não dar erro em caracteres especiais, indent para separar no tanto de linhas necessário.
-                json.dump(users, old_data, ensure_ascii=False, indent=len(users))
+                # old_data estará vazio se o arquivo não existir.
+                json.dump(users, file, ensure_ascii=False, indent=len(users))
 
             print('Os dados foram adicionados ao JSON!')
             sleep(1)
@@ -79,7 +82,7 @@ while True:
             clear()
             while True:
                 try:
-                    clear()
+                    jsondb = (input('Insira o nome do seu arquivo: ').lower()).strip()
                     with open(f'aula6/{jsondb}.json', 'r', encoding='utf-8') as file:
                         
                         # Load carrega o arquivo json na variável dados, que agora é nosso dict
@@ -88,6 +91,7 @@ while True:
                     print(f'{8 * '-'} Dados {8 * '-'}')
 
                     # Itera sobre cada dado presente no json (armazenado na lista, na var dados), e dentro dele itera sobre cada chave (uma para cada valor)
+                    # Cada dict é um elemento da lista.
                     # json_dict = cada um dos dicionários dentro da lista de dicionários, que é 'dados'
                     # key = a chave de cada um dos dicionários
 
@@ -97,20 +101,50 @@ while True:
                         
                         print('\n'f'{10 * '-'}''\n')
 
-                    print('Exibição finalizada.')
                     sleep(10)
                     clear()
                     break
                 
                 # NameError é um erro levantado caso a variável 'jsondb' não seja encontrada.
-                except NameError:
-                    print('Erro. O arquivo não foi encontrado.''\n')
-                    jsondb = (input('Insira o nome do seu arquivo: ').lower()).strip()
+                # FileNotFoundError é um erro levantado caso nenhum arquivo com esse nome exista.
+                except (NameError, FileNotFoundError) as e:
+                    print('Não foi possível encontrar o arquivo. Tente novamente!')
 
-                    sleep(1)
+                    sleep(2)
+                    clear()
                     continue
-
+                
+                # Erro de decodificação do JSON, que é levantado quando não é possível carregar o conteúdo do JSON em uma variável
+                # Logo, o arquivo está corrompido ou vazio.
+                except json.decoder.JSONDecodeError:
+                    
+                    print('\n''O arquivo está vazio ou corrompido. Tente novamente!')
+                    sleep(2)
+                    clear()
+                    continue
+            continue
+        
         case 4:
+            clear()
+            while True:
+                try:
+                    jsondb = (input('Insira o nome do seu arquivo: ').lower()).strip()
+                    remove(f'C:/Users/davim/OneDrive/Documentos/Code/aulas-ds/aula6/{jsondb}.json')
+                    print('Arquivo JSON deletado com sucesso!')
+                    
+                    sleep(1)
+                    clear()
+                    break
+                
+                except (NameError, FileNotFoundError) as e:
+                    print('Não foi possível encontrar o arquivo. Tente novamente!')
+                    
+                    sleep(2)
+                    clear()
+                    continue
+            continue
+            
+        case 5:
             clear()
             print('Já vai tarde.')
             break
