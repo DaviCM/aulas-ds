@@ -1,0 +1,27 @@
+[
+ {
+  "nome": "Nunes",
+  "idade": 14,
+  "email": "nunes@gmail.com"
+ },
+ {
+     "nome": "Karython 60",
+     "idade": 60,
+     "email": "karython@60"
+ },
+ {
+     "nome": "Miho Nishizumi",
+     "idade": 16,
+     "email": "miho.nishizumi@gurlsundpanzer"
+ },
+ {
+     "nome": "Senai",
+     "idade": 99,
+     "email": "senaiead@aluno.senai.br"
+ },
+ {
+     "nome": "Hatsune",
+     "idade": 6,
+     "email": "hatsunemiku@a"
+ }
+]
