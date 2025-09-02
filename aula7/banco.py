@@ -89,6 +89,7 @@ def acessarConta():
         except ValueError:
             print('O usuário ou a senha estão errados. Tente novamente. (Acesso)')
             system('cls')
+            sleep(2)
             continue
 
 

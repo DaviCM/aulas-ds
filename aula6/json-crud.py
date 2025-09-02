@@ -1,5 +1,5 @@
 import json
-from os import system, name, path
+from os import system, remove, name, path
 from time import sleep
 
 users = []
