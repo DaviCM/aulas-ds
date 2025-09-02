@@ -18,6 +18,7 @@ def pegarFloat(value):
     while True:
         try:
             value = float((input(value).replace(',','.')).strip())
+            
             if value >= 0:
                 system('cls')
                 return value
@@ -34,6 +35,7 @@ def senha(value):
         try:
             retvalue = value
             retvalue = input(retvalue).strip()
+            
             if len(retvalue) == 6:
                 system('cls')
                 return retvalue
@@ -57,7 +59,6 @@ def novaConta():
             sleep(2)
             system('cls')
             continue
-        
         else:
             break
         
@@ -131,12 +132,14 @@ def gerirConta():
         while True:
             system('cls')
             print('3 - Encerrar conta')
+            
             if users[user][1] != 0:
                 print('Você não pode deletar a conta, pois possui saldo nela. Faça o saque do valor para deletar.')
                 sleep(2)
                 continue
             
             del_acc = (input('Tem certeza que deseja seguir em frente? (n para voltar): ').lower()).strip()
+            
             if del_acc == 'n':
                 print('\n''Ufa, que bom!')
                 sleep(1)
@@ -145,6 +148,7 @@ def gerirConta():
             else:
                 system('cls')
                 pw = senha('Digite sua senha: ') 
+                
                 if pw in (users[user][0]):
                     print('Senha confirmada. Deletando conta.')
                     del users[user]
