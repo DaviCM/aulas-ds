@@ -1,5 +1,5 @@
 import json
-from os import system, name
+from os import system, name, path
 from time import sleep
 
 users = []
@@ -40,7 +40,7 @@ while True:
             clear()
 
             # Aqui eu adiciono as chaves nome, idade e email ao dicionário do usuário
-            newuser['nome'] = (input('Digite o nome que deseja adicionar: ').title()).strip()
+            newuser['nome'] = (input('Digite o nome do usuário: ').title()).strip()
             newuser['idade'] = getInt('Digite a idade do usuário: ')
             newuser['email'] = input('Digite o email do usuário: ').strip()
 
@@ -54,8 +54,8 @@ while True:
             jsondb = (input('Insira o nome do seu arquivo: ').lower()).strip()
 
             # Check para ver se o arquivo já existe, para não deletar os dados que já estão nele
-            # Ou criar uma outra lista, além da que já existe
-            if jsondb == True:
+            # Ou criar uma outra lista, além da que já existe. usa a funçaõ exists(), do módulo path de os
+            if path.exists(f'aula6/{jsondb}'):
                 with open(f'aula6/{jsondb}.json', 'r', encoding='utf-8') as file:
                     old_data = json.load(file)
 
@@ -63,12 +63,21 @@ while True:
                 # apenas um elemento, e não todos os elementos separadamente.
                 old_data.extend(users)
 
-            # Abre o nosso json no formato certo, modo 'a', para adicionar ao arquivo ao invés de sobresvrever. nome dele no código é 'file'.
-            with open(f'aula6/{jsondb}.json', 'a', encoding='utf-8') as file:
+                # Abre o nosso json no formato certo, modo 'a', para adicionar ao arquivo ao invés de sobresvrever. nome dele no código é 'file'.
+                with open(f'aula6/{jsondb}.json', 'a', encoding='utf-8') as file:
 
-                # Dump é uma função para salvar um arquivo em json. Parâmetros: users é o que vamos adicionar, edit_json é onde vamos adicionar,
-                # ensure_ascii é falso para não dar erro em caracteres especiais, indent para separar no tanto de linhas necessário.
-                json.dump(users, old_data, ensure_ascii=False, indent=len(users))
+                    # Dump é uma função para salvar um arquivo em json. Parâmetros: users é o que vamos adicionar, old_data é onde vamos adicionar,
+                    # ensure_ascii é falso para não dar erro em caracteres especiais, indent para separar no tanto de linhas necessário.
+
+                    # Com mais clareza: users contém os dados novos que adicionamos, old_data são os dados antigos (se existirem) + os dados que adicionamos com extend
+                    # Esse old_data sempre receberá o que foi escrito em users, e será transferido ao json.
+                    json.dump(users, old_data, ensure_ascii=False, indent=0)
+            
+            else:
+                with open(f'aula6/{jsondb}.json', 'w', encoding='utf-8') as file:
+                    
+                    json.dump(users, file, ensure_ascii=False, indent=1)
+            
 
             print('Os dados foram adicionados ao JSON!')
             sleep(1)
