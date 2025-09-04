@@ -82,6 +82,5 @@ def novocpf():
     print(f'Esse CPF é valido em: {match_cpf(cpf)}!')
     print('\n''Polícia Federal diz: Por que você quer gerar um CPF?''\n')
 
-novocpf()
-
-
+if __name__ == '__main__':
+    novocpf()
