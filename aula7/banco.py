@@ -3,30 +3,22 @@ from time import sleep
 
 users = {}
 
-def pegarInt(value):
-    while True:
-        try:
-            value = int(input(value).strip())
-            system('cls')
-            return value
-
-        except ValueError:
-            break
-
-
 def pegarFloat(value):
     while True:
         try:
-            value = float((input(value).replace(',','.')).strip())
+            retvalue = value
+            retvalue = float((input(value).replace(',','.')).strip())
             
-            if value >= 0:
+            if retvalue > 0:
                 system('cls')
-                return value
+                return retvalue
             else:
                 raise ValueError
 
         except ValueError:
             print('Valor inválido. Por favor, tente novamente.')
+            sleep(1)
+            system('cls')
             continue
 
 
@@ -52,9 +44,11 @@ def senha(value):
 def novaConta():
     while True:
         print('Hora de criar sua nova conta!')
-        user = (input('Digite seu nome: ').title()).strip()
+        user = (input('Digite seu nome (Apenas caracteres do alfabeto são permitidos): ').title()).strip()
         
-        if user in users.keys():
+        # HACK HACK HACK Drible na função isalpha(), que não aceita espaços
+        if (user in users.keys()) or ((user.replace(' ', '')).isalpha() == False):
+            system('cls')
             print('Nome de usuário inválido. Insira outro.')
             sleep(2)
             system('cls')
@@ -78,6 +72,13 @@ def novaConta():
 
 def acessarConta():
     while True:
+        
+        if users == {}:
+            print('Não há contas para entrar. Cadastre uma conta antes.')
+            sleep(2)
+            system('cls')
+            return False, None
+        
         try:
             user = (input('Insira seu nome de usuário: ').title()).strip()
             pw = senha('Digite sua senha: ')
@@ -98,22 +99,32 @@ def gerirConta():
     valido, user = acessarConta()
     
     def sacar():
-        system('cls')
-        print('1 - Sacar valor')
-        print(f'Esse é seu saldo: {(users[user][1]):.2f}')
-        saque = pegarFloat('Insira o valor que deseja sacar: R$')
-        
-        if (saque > (users[user][1])) or (saque == 0):
-            print('Operação Impossível. Você não possui esse valor.')
-            print('Tente novamente.')
-            sleep(2)
+        while True:
             system('cls')
-        else:
-            (users[user][1]) -= saque
-            print(f'Você sacou R${saque:.2f}.')
-            print(f'Seu novo saldo é: R${(users[user][1]):.2f}.')
-            sleep(2)
-            system('cls')
+            print('1 - Sacar valor')
+            
+            if (users[user][1]) == 0:
+                print('Você não possui saldo para sacar. Deposite um valor antes.')
+                sleep(2)
+                system('cls')
+                break
+            
+            print(f'Esse é seu saldo: {(users[user][1]):.2f}')
+            saque = pegarFloat('Insira o valor que deseja sacar: R$')
+            
+            if (saque > (users[user][1])) or (saque == 0):
+                print('Operação Impossível. Você não possui esse valor.')
+                print('Tente novamente.')
+                sleep(2)
+                system('cls')
+                break
+            else:
+                (users[user][1]) -= saque
+                print(f'Você sacou R${saque:.2f}.')
+                print(f'Seu novo saldo é: R${(users[user][1]):.2f}.')
+                sleep(2)
+                system('cls')
+                break
 
     
     def depositar():
@@ -136,7 +147,8 @@ def gerirConta():
             if users[user][1] != 0:
                 print('Você não pode deletar a conta, pois possui saldo nela. Faça o saque do valor para deletar.')
                 sleep(2)
-                continue
+                system('cls')
+                break
             
             del_acc = (input('Tem certeza que deseja seguir em frente? (n para voltar): ').lower()).strip()
             
@@ -163,41 +175,43 @@ def gerirConta():
     
     
     while valido == True:
-        print(f' {5 * '-'} Bem vindo à sua conta, {user}! {5 * '-'}')
-        print(f'Você possui um saldo de: R${(users[user][1]):.2f}.')
+        print(f'Bem vindo à sua conta, {user}!')
+        print(f'Você possui um saldo de: R${(users[user][1]):.2f}.''\n')
         print('1 - Sacar valor')
         print('2 - Depositar valor')
         print('3 - Encerrar conta')
         print('4 - Sair da conta''\n')
-        cc_opt = pegarInt('Insira o que deseja fazer: ')
+        cc_opt = input('Insira o que deseja fazer: ')
 
         match cc_opt:
-            case 1:
+            case '1':
                 sacar()
                 continue
 
-            case 2:
+            case '2':
                 depositar()
                 continue
 
-            case 3:
+            case '3':
                 excluirConta()
                 break
         
-            case 4:
+            case '4':
                 system('cls')
                 print('Saindo da sua conta.')
+                sleep(1)
+                system('cls')
                 break
 
             case _:
                 system('cls')
                 print('Valor inválido. Por favor, tente novamente. (Conta Corrente)')
+                sleep(1)
+                system('cls')
                 continue
-        break
 
     else:
         system('cls')
-        acessarConta()
 
 
 def main():
@@ -207,19 +221,19 @@ def main():
         print('1 - Cadastrar novo usuário')
         print('2 - Acessar conta corrente')
         print('3 - Ir embora''\n')
-        gn_opt = pegarInt('Insira o que deseja fazer: ')
+        gn_opt = input('Insira o que deseja fazer: ')
 
         match gn_opt:
-            case 1:
+            case '1':
                 system('cls')
                 novaConta()
                 continue
 
-            case 2:
+            case '2':
                 system('cls')
                 gerirConta()
 
-            case 3:
+            case '3':
                 system('cls')
                 print('Já vai tarde.')
                 break
@@ -230,6 +244,7 @@ def main():
                 sleep(1)
                 system('cls')
                 continue
+
 
 main()
 
