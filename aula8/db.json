@@ -1,0 +1,31 @@
+[
+    {
+
+        "tech" : ["python", "developer", "programação", "inteligência", "artificial", "computador",
+            "java", "javascript", "garoto", "programa", "notebook", "computador", "memória",
+            "sistema", "operacional", "monitor", "samsung", "palavras", "escola", "anime",
+            "forca", "gabinete", "placa", "teclado", "calvície", "laptop", "desktop", "hardware"]
+
+    },
+    { 
+        
+        "cidades" : ["maceió", "cuiabá", "brasília"]
+
+    },
+    {
+
+        "girlsundpanzer" : ["maho", "miho", "darjeeling", "kay", "anchovy", "katyusha", "mika", "alice"]
+
+    },
+    {
+
+        "países" : ["brasil", "rússia", "china", "india", "azerbaijão", "holanda"]
+
+    },
+    {
+
+        "empresas" : ["mcdonalds", "samsung", "apple", "sony", "microsoft"]
+
+    }
+]
+
