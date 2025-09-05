@@ -3,12 +3,9 @@ from time import sleep
 from os import system
 import json
 
-def createGame():
-    ...
-    
-    
-def getWord():
+def getKeys():
     dictKeys = []
+    
     with open('aula8/db.json', 'r', encoding='utf-8') as file:
         data = (json.load(file))
     
@@ -16,17 +13,64 @@ def getWord():
         for key in keys:
             dictKeys.append(key)
     
+    return data, dictKeys
+
+
+def createGame():
+    data, dictKeys = getKeys()
+    newValues = []
+    counter = 1
+        
     while True:
         system('cls')
-        print('Bem-Vindo ao Jogo da Forca!')
+        print('Bem vindo ao criador de categorias!''\n')
+         
+        category = (input('Insira o nome da categoria desejada: ').lower()).strip()
+        
+        if (category in dictKeys) or (category == ' '):
+            system('cls')
+            print('Esse nome já foi utilizado ou é inválido. Insira outro.')
+            sleep(1)
+            continue
+        
+        while True:
+            system('cls')
+            name = (input(f'Insira a {counter}° opção da categoria (enter para finalizar): ').lower()).strip()
+            if name == '':
+                break
+            else:
+                newValues.append(name)
+                counter += 1
+        break
+    
+    valuesDict = {category : newValues}
+    data.append(valuesDict)
+    
+    print('\n'f'Nova categoria adicionada: {valuesDict}')
+    sleep(1)
+    system('cls')
+                
+    with open('aula8/db.json', 'w', encoding='utf-8') as file:
+        # data = dicionário atualizado, file = arquivo onde será adicionado, ensure_ascii=false para permitir outros caracteres, indent=4 para organização com tab.
+        json.dump(data, file, ensure_ascii=False, indent=4)
+        
+    
+def getWord():
+    
+    while True:
+        data, dictKeys = getKeys()
+    
+        system('cls')
+        print(f'{5 * '-'} Bem-Vindo ao Jogo da Forca! {5 * '-'}''\n')
         
         for i in range(len(dictKeys)): 
             print(f'Opção de jogo {i + 1}: {(dictKeys[i]).title()}')
-        print(f'Opção {i + 2}: Sair do Jogo''\n')
+        print('\n'f'Opção {i + 2}: Criar nova categoria de jogo')
+        print(f'Opção {i + 3}: Sair do Jogo''\n')
 
         try:
             opt = int(input('Insira a opção desejada: '))
-            if (opt < 1) or (opt > (i + 2)):
+            if (opt < 1) or (opt > (i + 3)):
                 raise ValueError
 
         except ValueError:
@@ -40,6 +84,9 @@ def getWord():
             # Armazenadas em dictKeys, e usamos como parâmetro no get.
             return True, choice(data[opt - 1].get(dictKeys[opt - 1]))
         elif opt == (i + 2):
+            createGame()
+            continue
+        elif opt == (i + 3):
             system('cls')
             print('Adeus, amigo (Opção de sair).')
             return False, None
@@ -126,10 +173,13 @@ def gameLoop():
                 sleep(1)
                 system('cls')
                 continue
+     
              
     postGame()
+
          
 gameLoop()
+
 
 
 

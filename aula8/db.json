@@ -1,47 +1,155 @@
 [
     {
-
-        "tech" : ["python", "developer", "programação", "inteligência", "artificial", "computador",
-            "java", "javascript", "garoto", "programa", "notebook", "computador", "memória",
-            "sistema", "operacional", "monitor", "samsung", "palavras", "escola", "anime",
-            "forca", "gabinete", "placa", "teclado", "calvície", "laptop", "desktop", "hardware"]
-
-    },
-    { 
-        
-        "cidades" : ["maceió", "cuiabá", "brasília"]
-
-    },
-    {
-
-        "girls und panzer" : ["nishizumi maho", "nishizumi miho", "darjeeling", "kay", "anchovy", "katyusha", 
-            "mika", "shimada alice", "mako reizei", "kadotani anzu"]
-
-    },
-    {
-
-        "países" : ["brasil", "rússia", "china", "india", "azerbaijão", "holanda", "espanha",
-            "monaco", "kuwait", "croácia", "áustria", "montenegro", "macedônia", "sérva"]
-
-    },
-    {
-
-        "personalidades" : ["getúlio vargas", "nelson mandela", "john f kennedy", "josef stalin", "martin luther king", 
-            "sócrates", "isaac newton"]
-
-    },
-    {
-
-        "animais" : ["cachorro", "gato", "galinha", "cabra", "peru", "galo", "alce",
-            "coelho", "águia", "guepardo", "leão", "leão marinho", "hipopótamo"]
- 
+        "tech": [
+            "python",
+            "developer",
+            "programação",
+            "inteligência",
+            "artificial",
+            "computador",
+            "java",
+            "javascript",
+            "garoto",
+            "programa",
+            "notebook",
+            "computador",
+            "memória",
+            "sistema",
+            "operacional",
+            "monitor",
+            "samsung",
+            "palavras",
+            "escola",
+            "anime",
+            "forca",
+            "gabinete",
+            "placa",
+            "teclado",
+            "calvície",
+            "laptop",
+            "desktop",
+            "hardware"
+        ]
     },
     {
-
-        "companhias aéreas" : ["varig", "vasp", "transbrasil", "american", "united", "delta", "panair",
-            "cruzeiro", "british", "cathay", "gol", "latam", "azul", "saudia", "emirates",
-            "etihad", "austrian", "lufthansa", "klm", "twa", "pan am", "air france"]
-
+        "cidades": [
+            "maceió",
+            "cuiabá",
+            "brasília"
+        ]
+    },
+    {
+        "girls und panzer": [
+            "nishizumi maho",
+            "nishizumi miho",
+            "darjeeling",
+            "kay",
+            "anchovy",
+            "katyusha",
+            "mika",
+            "shimada alice",
+            "mako reizei",
+            "kadotani anzu",
+            "nakasuga emi",
+            "itsumi erika",
+            "nonna",
+            "klara",
+            "rosehip",
+            "orange pekoe",
+            "ami chono"
+        ]
+    },
+    {
+        "países": [
+            "brasil",
+            "rússia",
+            "china",
+            "índia",
+            "azerbaijão",
+            "holanda",
+            "espanha",
+            "monaco",
+            "kuwait",
+            "croácia",
+            "áustria",
+            "montenegro",
+            "macedônia",
+            "sérvia"
+        ]
+    },
+    {
+        "personalidades": [
+            "getúlio vargas",
+            "nelson mandela",
+            "john f kennedy",
+            "josef stalin",
+            "martin luther king",
+            "sócrates",
+            "isaac newton"
+        ]
+    },
+    {
+        "animais": [
+            "cachorro",
+            "gato",
+            "galinha",
+            "cabra",
+            "peru",
+            "galo",
+            "alce",
+            "coelho",
+            "águia",
+            "guepardo",
+            "leão",
+            "leão marinho",
+            "hipopótamo"
+        ]
+    },
+    {
+        "companhias aéreas": [
+            "varig",
+            "vasp",
+            "transbrasil",
+            "american airlines",
+            "united airlines",
+            "delta airlines",
+            "panair do brasil",
+            "cruzeiro do sul",
+            "british airways",
+            "cathay pacific",
+            "gol",
+            "latam",
+            "azul",
+            "saudia",
+            "emirates",
+            "etihad",
+            "austrian airlines",
+            "lufthansa",
+            "klm",
+            "twa",
+            "pan am",
+            "air france"
+        ]
+    },
+    {
+        "bananas": [
+            "de pijamas",
+            "descendo",
+            "as escadas"
+        ]
+    },
+    {
+        "carros": [
+            "celta",
+            "polo",
+            "onix",
+            "laferrari",
+            "renegade",
+            "evoque",
+            "compass",
+            "montana",
+            "passat",
+            "parati"
+        ]
     }
 ]
-
