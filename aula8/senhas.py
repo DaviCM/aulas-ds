@@ -5,6 +5,10 @@ import string
 
 def getInt(value):
     while True:
+        if (input(value) == ''):
+            value = 12
+            return value
+            
         try:
             value = int(input(value).strip())
             system('cls')
@@ -16,6 +20,7 @@ def getInt(value):
             system('cls')
             continue
 
+getOptions = lambda value: True if (input(value).lower()).strip() != 'n' else False
 
 def novaSenha(length=12, upperC=True, lowerC=True, number=True, special=True):
 
@@ -39,13 +44,13 @@ def novaSenha(length=12, upperC=True, lowerC=True, number=True, special=True):
     return pw
 
 
-qtdsenhas = getInt('Digite quantas senhas você deseja gerar: ')
+qtdsenhas = getInt('Digite quantas senhas você deseja gerar (enter para padrão 12): ')
 pwLength = getInt('Digite o tamanho das senhas (enter para padrão 12): ')
 
-useUpper = True if (input('Deseja que a senha tenha caracteres maiúsculos? (n para negar): ').lower()).strip() != 'n' else False
-useLower = True if (input('Deseja que a senha tenha caracteres minúsculos? (n para negar): ').lower()).strip() != 'n' else False
-useNumber = True if (input('Deseja que a senha tenha números? (n para negar): ').lower()).strip() != 'n' else False
-useSpecial = True if (input('Deseja que a senha tenha caracteres especiais? (n para negar): ').lower()).strip() != 'n' else False
+useUpper =  getOptions('Deseja que a senha tenha caracteres maiúsculos? (n para negar): ')
+useLower =  getOptions('Deseja que a senha tenha caracteres minúsculos? (n para negar): ')
+useNumber =  getOptions('Deseja que a senha tenha números? (n para negar): ')
+useSpecial = getOptions('Deseja que a senha tenha caracteres especiais? (n para negar): ')
 
 # With: Bloco que opera um código e automaticamente finaliza a operação ao fim.
 with open('aula8/senhas.txt', 'w', encoding='utf-8') as file:
