@@ -56,7 +56,6 @@ def createGame():
         
     
 def getWord():
-    
     while True:
         data, dictKeys = getKeys()
     
