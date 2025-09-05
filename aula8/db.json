@@ -14,17 +14,33 @@
     },
     {
 
-        "girlsundpanzer" : ["maho", "miho", "darjeeling", "kay", "anchovy", "katyusha", "mika", "alice"]
+        "girls und panzer" : ["nishizumi maho", "nishizumi miho", "darjeeling", "kay", "anchovy", "katyusha", 
+            "mika", "shimada alice", "mako reizei", "kadotani anzu"]
 
     },
     {
 
-        "países" : ["brasil", "rússia", "china", "india", "azerbaijão", "holanda"]
+        "países" : ["brasil", "rússia", "china", "india", "azerbaijão", "holanda", "espanha",
+            "monaco", "kuwait", "croácia", "áustria", "montenegro", "macedônia", "sérva"]
 
     },
     {
 
-        "empresas" : ["mcdonalds", "samsung", "apple", "sony", "microsoft"]
+        "personalidades" : ["getúlio vargas", "nelson mandela", "john f kennedy", "josef stalin", "martin luther king", 
+            "sócrates", "isaac newton"]
+
+    },
+    {
+
+        "animais" : ["cachorro", "gato", "galinha", "cabra", "peru", "galo", "alce",
+            "coelho", "águia", "guepardo", "leão", "leão marinho", "hipopótamo"]
+ 
+    },
+    {
+
+        "companhias aéreas" : ["varig", "vasp", "transbrasil", "american", "united", "delta", "panair",
+            "cruzeiro", "british", "cathay", "gol", "latam", "azul", "saudia", "emirates",
+            "etihad", "austrian", "lufthansa", "klm", "twa", "pan am", "air france"]
 
     }
 ]
