@@ -3,10 +3,12 @@ from time import sleep
 from os import system
 import json
 
-def palavraParaAchar():
+def createGame():
+    ...
     
+    
+def getWord():
     dictKeys = []
-    
     with open('aula8/db.json', 'r', encoding='utf-8') as file:
         data = (json.load(file))
     
@@ -33,7 +35,7 @@ def palavraParaAchar():
             sleep(1)
             continue
 
-        if (opt > 1) and (opt < (i + 2)):
+        if (opt >= 1) and (opt < (i + 2)):
             # Valor de retorno usa a função get no conjunto de dados total, que retorna o dicionário correto. Então, pegamos as keys do dicionário
             # Armazenadas em dictKeys, e usamos como parâmetro no get.
             return True, choice(data[opt - 1].get(dictKeys[opt - 1]))
@@ -43,16 +45,21 @@ def palavraParaAchar():
             return False, None
 
 
-def gameLoop():
+def gameLoop():  
     def mainGame():
-        valid, palavraAlvo = palavraParaAchar()
+        valid, palavraAlvo = getWord()
         
         if valid == True:
             errors = []
+            palavraEscondida = []
             tries = 6
             palavraAlvo = [letra for letra in palavraAlvo]
-            palavraEscondida = ['_' for s in palavraAlvo if s != ' ']
 
+            for s in palavraAlvo:
+                if s == ' ':
+                    palavraEscondida.append(' ')
+                else:
+                    palavraEscondida.append('_')
 
             while True:    
                 system('cls')
@@ -78,11 +85,11 @@ def gameLoop():
                 elif (len(tent) > 1) and (tent == ''.join(palavraAlvo)):
                     system('cls')
                     print('Você ganhou, e com ousadia! Parabéns!')
-                    print(f'A palavra era: {''.join(palavraAlvo)}')
+                    print(f'A resposta era: {''.join(palavraAlvo)}')
                     return True
                 elif (len(tent) > 1):
                     system('cls')
-                    print(f'Você perdeu, mas valeu a ousadia. A palavra era: {''.join(palavraAlvo)}')
+                    print(f'Você perdeu, mas valeu a ousadia. A resposta era: {''.join(palavraAlvo)}')
                     return True
                 else:
                     errors.append(tent) if tent not in errors else None
@@ -91,12 +98,12 @@ def gameLoop():
                 if ''.join(palavraEscondida) == ''.join(palavraAlvo):
                     system('cls')
                     print('Você ganhou! Parabéns!')
-                    print(f'A palavra era: {''.join(palavraAlvo)}')
+                    print(f'A resposta era: {''.join(palavraAlvo)}')
                     return True
                         
                 if tries == 0:
                     system('cls')
-                    print(f'Você perdeu. A palavra era: {''.join(palavraAlvo)}')
+                    print(f'Você perdeu. A resposta era: {''.join(palavraAlvo)}')
                     return True
         else:
             return False
@@ -107,20 +114,25 @@ def gameLoop():
         
         while valid == True:
             opt = (input('\n''Deseja jogar novamente? (s/n): ').lower()).strip()
+            
             if opt == 's':
-                mainGame()
+                valid = mainGame()
             elif opt == 'n':
                 system('cls')
                 print('Adeus amigo (Recusa a jogar novamente).')
-                return False
+                break
             else:
                 print('Opção inválida. Tente novamente.')
                 sleep(1)
                 system('cls')
                 continue
-        else:
-            return False
-        
+             
     postGame()
          
 gameLoop()
+
+
+
+
+
+
