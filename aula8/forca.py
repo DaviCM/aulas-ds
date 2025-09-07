@@ -4,16 +4,24 @@ from os import system
 import json
 
 def getKeys():
-    dictKeys = []
+    try:
+        dictKeys = []
+        
+        with open('aula8/db.json', 'r', encoding='utf-8') as file:
+            data = (json.load(file))
+        
+        for keys in data:
+            for key in keys:
+                dictKeys.append(key)
+        
+        return data, dictKeys
     
-    with open('aula8/db.json', 'r', encoding='utf-8') as file:
-        data = (json.load(file))
-    
-    for keys in data:
-        for key in keys:
-            dictKeys.append(key)
-    
-    return data, dictKeys
+    except json.decoder.JSONDecodeError:
+        # Retorna as duas listas vazias, correspondentes a lista de dicionários e a lista de chaves.
+        # Forma mais fácil de tratar do que retornando False, pois permite a criação fácil de novas categorias no JSON
+        # Permite um menu diferete em getWord caso a lista data esteja vazia
+        # E permite que o tratamento seja mais conciso.
+        return [], []
 
 
 def createGame():
@@ -58,37 +66,53 @@ def createGame():
 def getWord():
     while True:
         data, dictKeys = getKeys()
-    
+        
         system('cls')
         print(f'{5 * '-'} Bem-Vindo ao Jogo da Forca! {5 * '-'}''\n')
         
-        for i in range(len(dictKeys)): 
-            print(f'Opção de jogo {i + 1}: {(dictKeys[i]).title()}')
-        print('\n'f'Opção {i + 2}: Criar nova categoria de jogo')
-        print(f'Opção {i + 3}: Sair do Jogo''\n')
+        if data != []:
+            for i in range(len(dictKeys)): 
+                print(f'Opção de jogo {i + 1}: {(dictKeys[i]).title()}')
+            print('\n'f'Opção {i + 2}: Criar nova categoria de jogo')
+            print(f'Opção {i + 3}: Sair do Jogo''\n')
 
-        try:
-            opt = int(input('Insira a opção desejada: '))
-            if (opt < 1) or (opt > (i + 3)):
-                raise ValueError
+            try:
+                opt = int(input('Insira a opção desejada: '))
+                if (opt < 1) or (opt > (i + 3)):
+                    raise ValueError
 
-        except ValueError:
+            except ValueError:
+                system('cls')
+                print('Valor inválido. Por favor, tente novamente.')
+                sleep(1)
+                continue
+
+            if (opt >= 1) and (opt < (i + 2)):
+                # Valor de retorno usa a função get no conjunto de dados total, que retorna o dicionário correto. Então, pegamos as keys do dicionário
+                # Armazenadas em dictKeys, e usamos como parâmetro no get.
+                return True, choice(data[opt - 1].get(dictKeys[opt - 1]))
+            elif opt == (i + 2):
+                createGame()
+                continue
+            elif opt == (i + 3):
+                system('cls')
+                print('Adeus, amigo (Opção de sair).')
+                return False, None
+        else:
             system('cls')
-            print('Valor inválido. Por favor, tente novamente.')
-            sleep(1)
-            continue
-
-        if (opt >= 1) and (opt < (i + 2)):
-            # Valor de retorno usa a função get no conjunto de dados total, que retorna o dicionário correto. Então, pegamos as keys do dicionário
-            # Armazenadas em dictKeys, e usamos como parâmetro no get.
-            return True, choice(data[opt - 1].get(dictKeys[opt - 1]))
-        elif opt == (i + 2):
-            createGame()
-            continue
-        elif opt == (i + 3):
-            system('cls')
-            print('Adeus, amigo (Opção de sair).')
-            return False, None
+            opt = (input('Não há nenhuma categoria de jogo disponível. Deseja criar uma agora? (s/n): ').lower()).strip()
+            
+            if opt == 's':
+                createGame()
+                continue
+            elif opt == 'n':
+                system('cls')
+                print('Adeus, amigo.')
+                return False, None
+            else:
+                print('Opção inválida. Tente novamente.')
+                sleep(1)
+                continue
 
 
 def gameLoop():  
