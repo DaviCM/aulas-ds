@@ -89,7 +89,7 @@ def getWord():
 
             if (opt >= 1) and (opt < (i + 2)):
                 # Valor de retorno usa a função get no conjunto de dados total, que retorna o dicionário correto. Então, pegamos as keys do dicionário
-                # Armazenadas em dictKeys, e usamos como parâmetro no get.
+                # armazenadas na lista dictKeys, já na posição correta recebida da opt, e usamos como parâmetro no get.
                 return True, choice(data[opt - 1].get(dictKeys[opt - 1]))
             elif opt == (i + 2):
                 createGame()
