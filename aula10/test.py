@@ -1,5 +1,11 @@
-from random import randint
+from random import choice, randint
 
-poder = randint(0, 1000)
-truepower = poder * 0.35
-print(int(truepower))
+def funcA(rng=None):
+    if rng == None:
+        rng = randint(1, 10000)
+    return rng
+
+while True:
+    print(funcA())
+
+
