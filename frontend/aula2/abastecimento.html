@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de abastecimento</title>
+</head>
+
+<body>
+    <style>
+        .hatsune {
+                width: 400px;
+                height: 400px;
+            }
+        .seu-madruga-e-hatsune{
+                width: 400px;
+                height: 400px;
+            }
+        .fundo{
+                width: 100%;
+                height: 100%;
+                flex: auto;
+                background-color: cyan;
+            }
+        .componentes{
+                align-items: center;
+                text-align: center;
+            }
+    </style>
+<!-- Um formulário para ensinar responsabilidade no transito-->
+    <div class="fundo">
+        <div class="componentes">
+    <h1><i>Bem vindo ao Monitor de Abastecimento</i></h1><br>
+    <h2>Insira as informações da sua última viagem!</h2>
+
+    <label id="km_inicial">Quilometragem <strong>inicial</strong>: </label><br>
+    <input type="number" id="km-inicial"> km<br><br>
+
+    <label id="km_final">Quilometragem <strong>final</strong>: </label><br>
+    <input type="number" id="km-final"> km<br><br>
+
+    <label id="l_abastecidos">Litros abastecidos: </label><br>
+    <input type="number" id="l-abastecidos"> L<br><br>
+
+    <!-- <label id="data_abastecimento">Data do abastecimento: </label> -->
+    <!-- <input type="date" id="data-abastecimento"><br><br> -->
+
+    <label id_preco_litro>Preço <strong>por litro</strong>: R$</label><br>
+    <input type="number" id="preco-litro"><br><br>
+
+    <button onclick="calcular()"> Calcular Preço do Abastecimento</button>
+    <h3 id="resultado">Resultado: </h3><br>
+    
+    <div class="hatsune-class">
+        <img src="https://conteudo.imguol.com.br/c/entretenimento/a0/2025/05/05/personagem-hatsune-miku-1746475253889_v2_1x1.png" 
+        class="hatsune">
+        <style>
+            
+        </style>
+        <p style="align-self: center;"> <i>Hatsune</i></p>
+    </div>
+
+    <div class="seu-madruga-e-hatsune">
+        <img src="https://i.ytimg.com/vi/S71TS_JEJWE/oardefault.jpg?sqp=-oaymwEiCJIFENAFSFqQAgHyq4qpAxEIARUAAAAAJQAAyEI9AICiQw==&rs=AOn4CLD0zxJA2WztTFZWllyDOe6Gbxdvqw&usqp=CCk"
+        class="seu-madruga-e-hatsune">
+        </div>
+    </div>
+    </div>
+    <script>
+        function calcular() {
+            let km_inicial = Number(document.getElementById("km-inicial").value);
+            let km_final = Number(document.getElementById("km-final").value);
+            let l_abastecidos = Number(document.getElementById("l-abastecidos").value);
+            let preco_litro = Number(document.getElementById("preco-litro").value);
+
+            if (km_inicial >= km_final) {
+                document.getElementById("resultado").innerHTML = 
+                "Os valores de quilometragem são inválidos. Impossível realizar leitura.";
+                return;
+            };
+
+            if (l_abastecidos <= 0 || preco_litro <= 0) {
+                document.getElementById("resultado").innerHTML = 
+                "Os valores de Litros Abastecidos e Preço por Litro não podem ser nulos.";
+                return;
+            };
+
+            let km_rodados = (km_final - km_inicial).toFixed(2);
+            let consumo_medio = (km_rodados / l_abastecidos).toFixed(2);
+            let custo_total = (l_abastecidos * preco_litro).toFixed(2);
+            let custo_km = (custo_total / km_rodados).toFixed(2);
+            
+            document.getElementById("resultado").innerHTML = 
+            "Quilômetros rodados: "+ km_rodados+ "km <br>"+
+            "Consumo médio: "+ custo_km+ "km/L <br>"+ 
+            "Custo por quilômetro: "+ custo_km+ "R$/km <br>"+ 
+            "Custo total: R$"+ custo_total
+            return;
+
+        };
+    </script>
+
+</body>
+
+</html>
