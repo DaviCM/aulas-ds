@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  FlatList,
+  ScrollView,
+  StyleSheet,
+} from "react-native";
 
 // Essa classe herda de component
 class App extends Component {
@@ -11,10 +19,12 @@ class App extends Component {
       botao: "Iniciar",
     };
 
+    this.temposSalvos = [];
     this.timer = null;
 
     this.iniciar = this.iniciar.bind(this);
     this.resetar = this.resetar.bind(this);
+    this.mostrarTemposSalvos = this.mostrarTemposSalvos.bind(this); // cria uma função que sempre terá 'this' como atributo, garantindo que ela mantenha contexto.
   }
 
   iniciar() {
@@ -35,10 +45,38 @@ class App extends Component {
   resetar() {
     clearInterval(this.timer);
     this.timer = null;
+
+    if (this.state.numero > 0) {
+      this.temposSalvos.push(this.state.numero);
+    }
+
     this.setState({
       numero: 0.0,
       botao: "Iniciar",
     });
+  }
+
+  mostrarTemposSalvos() {
+    return (
+      <ScrollView>
+        <View style={styles.historico}>
+          <Text style={styles.tituloHistorico}>Histórico</Text>
+          <FlatList
+            data={this.temposSalvos}
+            renderItem={({ item, index }) => {
+              return (
+                <View>
+                  <Text style={styles.tempoSalvo}>
+                    {index + 1}. {item.toFixed(2)}
+                  </Text>
+                </View>
+              );
+            }}
+            inverted={true}
+          />
+        </View>
+      </ScrollView>
+    );
   }
 
   render() {
@@ -56,6 +94,8 @@ class App extends Component {
             <Text style={styles.btnTexto}>Resetar</Text>
           </TouchableOpacity>
         </View>
+
+        <View>{this.mostrarTemposSalvos()}</View>
       </View>
     );
   }
@@ -72,9 +112,9 @@ const styles = StyleSheet.create({
   img: {},
 
   textoImg: {
-    fontFamily: "consolas",
     color: "aliceblue",
     fontSize: 60,
+    fontFamily: "consolas",
     fontWeight: "bold",
     marginTop: -150,
     marginBottom: 120,
@@ -101,6 +141,31 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "deepskyblue",
+  },
+
+  historico: {
+    backgroundColor: "aliceblue",
+    flex: 1,
+    padding: 15,
+    marginTop: 30,
+    borderRadius: 9,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  tituloHistorico: {
+    color: "deepskyblue",
+    fontSize: 25,
+    fontFamily: "consolas",
+    fontWeight: "bold",
+    marginBottom: 15,
+  },
+
+  tempoSalvo: {
+    color: "deepskyblue",
+    fontSize: 25,
+    fontFamily: "consolas",
+    padding: 10,
   },
 });
 
