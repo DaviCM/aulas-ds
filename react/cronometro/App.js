@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   FlatList,
   ScrollView,
+  Dimensions,
+  useWindowDimensions,
   StyleSheet,
 } from "react-native";
 
@@ -17,6 +19,7 @@ class App extends Component {
     this.state = {
       numero: 0.0,
       botao: "Iniciar",
+      alturaInicial: Dimensions.get("window").height,
     };
 
     this.temposSalvos = [];
@@ -24,6 +27,7 @@ class App extends Component {
 
     this.iniciar = this.iniciar.bind(this);
     this.resetar = this.resetar.bind(this);
+    this.iniciarScrollView = this.iniciarScrollView.bind(this);
     this.mostrarTemposSalvos = this.mostrarTemposSalvos.bind(this); // cria uma função que sempre terá 'this' como atributo, garantindo que ela mantenha contexto.
   }
 
@@ -56,9 +60,15 @@ class App extends Component {
     });
   }
 
+  iniciarScrollView() {
+    if (this.state.alturaInicial != useWindowDimensions().height) {
+      return this.temposSalvos.length > 5;
+    }
+  }
+
   mostrarTemposSalvos() {
     return (
-      <ScrollView>
+      <ScrollView style={styles.scroll} scrollEnabled={this.iniciarScrollView}>
         <View style={styles.historico}>
           <Text style={styles.tituloHistorico}>Histórico</Text>
           <FlatList
@@ -141,6 +151,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "deepskyblue",
+  },
+
+  scroll: {
+    flex: 1,
+    showsVerticalScrollIndicator: "true",
   },
 
   historico: {
