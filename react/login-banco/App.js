@@ -5,6 +5,7 @@ import {
   TextInput,
   Switch,
   TouchableOpacity,
+  Modal,
   StyleSheet,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
@@ -16,42 +17,36 @@ class App extends Component {
 
     this.state = {
       nome: "",
-      idade: 0,
+      idade: "",
       genero: "",
-      limite: 0.0,
+      limite: "",
       isEstudante: false,
+      modal: false,
     };
 
-    this.novoNome;
-    this.novaIdade;
-    this.novoGenero;
-    this.novoLimite;
-
-    this.atualizarNome = this.atualizarNome.bind(this);
-    this.atualizarIdade = this.atualizarIdade.bind(this);
-    this.atualizarGenero = this.atualizarGenero.bind(this);
-    this.atualizarLimite = this.atualizarLimite.bind(this);
-    this.toggleEstudante = this.toggleEstudante.bind(this);
+    this.modalCriarConta = this.modalCriarConta.bind(this);
   }
 
-  atualizarNome() {
-    this.setState({ nome: this.novoNome });
-  }
-
-  atualizarIdade() {
-    this.setState({ idade: this.novaIdade });
-  }
-
-  atualizarGenero() {
-    this.setState({ genero: this.novoGenero });
-  }
-
-  atualizarLimite() {
-    this.setState({ limite: this.novoLimite });
-  }
-
-  toggleEstudante() {
-    this.setState({ isEstudante: !isEstudante });
+  modalCriarConta() {
+    if (
+      this.state.nome == "" ||
+      this.state.idade == "" ||
+      this.state.genero == "" ||
+      this.state.limite == ""
+    ) {
+      return (
+        <Modal
+          style={styles.modalCriarConta}
+          animationType="fade"
+          transparent="true"
+          visible={this.state.modal}
+          onRequestClose={(modal) => this.setState({ modal })}
+        >
+          <Text>Há informações que ainda não foram preenchidas,</Text>
+          <Text>Preencha todas para prosseguir.</Text>
+        </Modal>
+      );
+    }
   }
 
   render() {
@@ -61,8 +56,8 @@ class App extends Component {
           <TextInput
             style={styles.input}
             inputMode="text"
-            value={this.novoNome}
-            onChangeText={this.atualizarNome}
+            value={this.state.nome}
+            onChangeText={(nome) => this.setState({ nome })}
             autoCapitalize="words"
             placeholder="Insira seu nome: "
           />
@@ -71,41 +66,58 @@ class App extends Component {
             style={styles.input}
             inputMode="numeric"
             maxLength={3}
-            value={this.novaIdade}
-            onChangeText={this.atualizarIdade}
+            value={this.state.idade}
+            onChangeText={(idade) => this.setState({ idade })}
             placeholder="Insira sua idade: "
           />
 
           <Picker
             style={styles.picker}
             mode="dropdown"
-            selectedValue={this.novoGenero}
-            onValueChange={this.atualizarGenero}
+            selectedValue={this.state.genero}
+            onValueChange={(genero) => this.setState({ genero })}
+            prompt="Escolha seu gênero: "
           >
+            <Picker.Item label="Escolha seu gênero: " value={""} />
             <Picker.Item label="Masculino" value="Masculino" />
             <Picker.Item label="Feminino" value="Feminino" />
+            <Picker.Item label="Outro" value="Outro" />
           </Picker>
 
           <Slider
             style={styles.slider}
+            minimumTrackTintColor="lightseagreen"
+            maximumTrackTintColor="darkgrey"
+            thumbTintColor="seagreen"
             minimumValue={500}
             maximumValue={45000}
             step={500}
-            value={this.novoLimite}
-            onValueChange={this.atualizarLimite}
+            value={this.state.limite}
+            onValueChange={(limite) => this.setState({ limite })}
           />
-          <Text style={styles.textoSlider}>{this.novoLimite}</Text>
+          <Text style={styles.textoSlider}>
+            Escolha seu limite: R${this.state.limite},00
+          </Text>
         </View>
 
         <View style={styles.caixaSwitch}>
           <Switch
             style={styles.switch}
-            trackColor={{ false: "dimgrey", true: "deepskyblue" }}
-            thumbColor={this.state.isEstudante ? "aliceblue" : "lightgrey"}
-            onValueChange={this.toggleEstudante}
+            trackColor={{ false: "dimgrey", true: "darkseagreen" }}
+            thumbColor={this.state.isEstudante ? "seagreen" : "lightgrey"}
+            activeThumbColor="seagreen"
+            value={this.state.isEstudante}
+            onValueChange={(isEstudante) => this.setState({ isEstudante })}
           />
           <Text style={styles.textoSwitch}>Conta para Estudante</Text>
         </View>
+
+        <TouchableOpacity
+          style={styles.botaoCriarConta}
+          onPress={this.modalCriarConta}
+        >
+          <Text style={styles.textoBotao}>Criar Conta</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -114,13 +126,16 @@ class App extends Component {
 const styles = StyleSheet.create({
   fundo: {
     flex: 1,
-    backgroundColor: "mintcream",
+    backgroundColor: "aliceblue",
     alignContent: "center",
     justifyContent: "center",
   },
 
   caixaDeOpcoes: {
     backgroundColor: "lightblue",
+    borderStyle: "solid",
+    borderWidth: 2,
+    borderColor: "lightseagreen",
     flexDirection: "column",
     padding: 10,
     margin: 30,
@@ -170,13 +185,17 @@ const styles = StyleSheet.create({
   textoSlider: {
     fontFamily: "consolas",
     fontWeight: "bold",
-    fontSize: 15,
-    color: "aliceblue",
+    fontSize: 16,
+    color: "lightseagreen",
+    marginHorizontal: 20,
     textAlign: "left",
   },
 
   caixaSwitch: {
     backgroundColor: "lightblue",
+    borderStyle: "solid",
+    borderWidth: 2,
+    borderColor: "lightseagreen",
     flexDirection: "row",
     padding: 10,
     margin: 30,
@@ -189,17 +208,40 @@ const styles = StyleSheet.create({
 
   switch: {
     height: 20,
-    marginRight: 30,
+    marginLeft: 20,
   },
 
   textoSwitch: {
     flex: 1,
-    marginLeft: 30,
+    marginLeft: 15,
     fontFamily: "consolas",
     fontWeight: "bold",
     fontSize: 16,
     color: "lightseagreen",
     textAlign: "left",
+  },
+
+  modalCriarConta: {},
+
+  botaoCriarConta: {
+    backgroundColor: "lightblue",
+    borderStyle: "solid",
+    borderWidth: 2,
+    borderColor: "lightseagreen",
+    padding: 15,
+    marginHorizontal: 350,
+    marginVertical: 20,
+    borderRadius: 10,
+    alignContent: "center",
+    justifyContent: "center",
+  },
+
+  textoBotao: {
+    fontFamily: "consolas",
+    fontWeight: "bold",
+    fontSize: 18,
+    color: "lightseagreen",
+    textAlign: "center",
   },
 });
 
