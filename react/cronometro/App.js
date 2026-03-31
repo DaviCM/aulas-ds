@@ -27,7 +27,7 @@ class App extends Component {
 
     this.iniciar = this.iniciar.bind(this);
     this.resetar = this.resetar.bind(this);
-    this.iniciarScrollView = this.iniciarScrollView.bind(this);
+    //    this.iniciarScrollView = this.iniciarScrollView.bind(this);
     this.mostrarTemposSalvos = this.mostrarTemposSalvos.bind(this); // cria uma função que sempre terá 'this' como atributo, garantindo que ela mantenha contexto.
   }
 
@@ -60,32 +60,32 @@ class App extends Component {
     });
   }
 
+  /*
   iniciarScrollView() {
     if (this.state.alturaInicial != useWindowDimensions().height) {
       return this.temposSalvos.length > 5;
     }
   }
+*/
 
   mostrarTemposSalvos() {
     return (
-      <ScrollView style={styles.scroll} scrollEnabled={this.iniciarScrollView}>
-        <View style={styles.historico}>
-          <Text style={styles.tituloHistorico}>Histórico</Text>
-          <FlatList
-            data={this.temposSalvos}
-            renderItem={({ item, index }) => {
-              return (
-                <View>
-                  <Text style={styles.tempoSalvo}>
-                    {index + 1}. {item.toFixed(2)}
-                  </Text>
-                </View>
-              );
-            }}
-            inverted={true}
-          />
-        </View>
-      </ScrollView>
+      <View style={styles.historico}>
+        <Text style={styles.tituloHistorico}>Histórico</Text>
+        <FlatList
+          data={this.temposSalvos}
+          renderItem={({ item, index }) => {
+            return (
+              <View>
+                <Text style={styles.tempoSalvo}>
+                  {index + 1}. {item.toFixed(2)}
+                </Text>
+              </View>
+            );
+          }}
+          inverted={true}
+        />
+      </View>
     );
   }
 
@@ -105,7 +105,9 @@ class App extends Component {
           </TouchableOpacity>
         </View>
 
-        <View>{this.mostrarTemposSalvos()}</View>
+        <ScrollView>
+          <View>{this.mostrarTemposSalvos()}</View>
+        </ScrollView>
       </View>
     );
   }
@@ -119,7 +121,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
-  img: {},
+  img: {
+    marginTop: 180,
+  },
 
   textoImg: {
     color: "aliceblue",
@@ -140,7 +144,8 @@ const styles = StyleSheet.create({
     backgroundColor: "aliceblue",
     flex: 1,
     height: 50,
-    margin: 12,
+    marginTop: -30,
+    marginHorizontal: 12,
     padding: 20,
     borderRadius: 9,
     alignItems: "center",
@@ -162,7 +167,7 @@ const styles = StyleSheet.create({
     backgroundColor: "aliceblue",
     flex: 1,
     padding: 15,
-    marginTop: 30,
+    marginTop: 0,
     borderRadius: 9,
     alignItems: "center",
     justifyContent: "center",
