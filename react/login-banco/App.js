@@ -78,7 +78,7 @@ class App extends Component {
             onValueChange={(genero) => this.setState({ genero })}
             prompt="Escolha seu gênero: "
           >
-            <Picker.Item label="Escolha seu gênero: " value={""} />
+            <Picker.Item label="Escolha seu gênero: " value="" />
             <Picker.Item label="Masculino" value="Masculino" />
             <Picker.Item label="Feminino" value="Feminino" />
             <Picker.Item label="Outro" value="Outro" />
