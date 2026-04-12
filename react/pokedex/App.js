@@ -1,10 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 
-async function getPokemonData(index) {}
+async function pegarDadosPoke(index) {
+  const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${index}`);
+  let types = [];
+
+  if (data.status == 200) {
+    const poke = await data.json();
+
+    if (poke.types.length > 1) {
+      types = [poke.types[0].type.name, poke.types[1].type.name];
+    } else {
+      types = [poke.types[0].type.name];
+    }
+
+    return {
+      name: poke.name,
+      types: types,
+      sprite_url: poke.sprites.other.dream_world.front_default,
+    };
+  }
+}
 
 export default function App() {
   const [index, setIndex] = useState(1);
+  const [name, setName] = useState("");
+  const [types, setTypes] = useState([]);
+  const [sprite, setSprite] = useState("");
+
+  useEffect(() => {
+    pegarDadosPoke(index).then((info) => {
+      setName(info.name);
+      setTypes(info.types);
+      setSprite(info.sprite_url);
+    });
+  }, [index]);
+
+  // lembrete: encadear funções faz o valor de cada uma delas ser retornado para a próxima, e iso pode causar diversos problemas.
 
   return (
     <View style={styles.fundo}>
@@ -16,37 +48,30 @@ export default function App() {
       </View>
 
       <View style={styles.containerImgPokemon}>
-        <Image
-          style={styles.imgPokemon}
-          source={require("./assets/placeholder.svg")}
-        />
+        <Image style={styles.imgPokemon} source={{ uri: sprite }} />
       </View>
 
       <Text style={styles.textoNumeroPokemon}>#{index}</Text>
 
       <View style={styles.containerInfoPokemon}>
-        <Text style={styles.textoInfoPokemon}>Species: Blastoise </Text>
-        <Text style={styles.textoInfoPokemon}>Type 1: Water </Text>
-        <Text style={styles.textoInfoPokemon}>Type 2: None </Text>
+        <Text style={styles.textoInfoPokemon}>Espécie: {name}</Text>
+        <Text style={styles.textoInfoPokemon}>Tipo 1: {types[0]}</Text>
+        <Text style={styles.textoInfoPokemon}>Tipo 2: {types[1]}</Text>
       </View>
 
       <View style={styles.containerBtn}>
-        <TouchableOpacity style={styles.btn}>
-          <Text
-            style={styles.textoBtn}
-            onPress={index > 1 ? () => setIndex((index) => index - 1) : null}
-          >
-            Anterior
-          </Text>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={index > 1 ? () => setIndex((index) => index - 1) : null}
+        >
+          <Text style={styles.textoBtn}>Anterior</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.btn}>
-          <Text
-            style={styles.textoBtn}
-            onPress={index < 1025 ? () => setIndex((index) => index + 1) : null}
-          >
-            Próximo
-          </Text>
+        <TouchableOpacity
+          style={styles.btn}
+          onPress={index < 1025 ? () => setIndex((index) => index + 1) : null}
+        >
+          <Text style={styles.textoBtn}>Próximo</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -67,12 +92,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 35,
     borderRadius: 15,
     backgroundColor: "#ca4141",
+    borderWidth: 4,
+    borderColor: "#2c2c2c",
   },
 
   logo: {
     aspectRatio: 3840 / 1410,
     width: "70%",
     height: "auto",
+    resizeMode: "contain",
   },
 
   containerImgPokemon: {
@@ -92,6 +120,7 @@ const styles = StyleSheet.create({
     aspectRatio: 326 / 413,
     width: "55%",
     height: "auto",
+    resizeMode: "contain",
   },
 
   textoNumeroPokemon: {
