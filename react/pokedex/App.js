@@ -51,11 +51,10 @@ export default function App() {
       );
 
       setSpriteTypes(newSpriteTypes);
-      console.log(newSpriteTypes);
     }
 
     alocarSprites();
-  }, [index]);
+  }, [index, sprite]);
 
   // lembrete: encadear funções faz o valor de cada uma delas ser retornado para a próxima, e iso pode causar diversos problemas.
 
@@ -75,7 +74,7 @@ export default function App() {
       <Text style={styles.textoNumeroPokemon}>#{index}</Text>
 
       <View style={styles.containerInfoPokemon}>
-        <Text style={styles.textoInfoPokemon}>Espécie: {name}</Text>
+        <Text style={styles.textoInfoPokemon}>{name}</Text>
         <Image style={styles.spriteTipo} source={{ uri: spriteTypes[0] }} />
         <Image style={styles.spriteTipo} source={{ uri: spriteTypes[1] }} />
       </View>
@@ -102,7 +101,7 @@ export default function App() {
 const styles = StyleSheet.create({
   fundo: {
     flex: 1,
-    backgroundColor: "#d6d6d6",
+    backgroundColor: "#f3f3f3",
   },
 
   containerLogo: {
@@ -171,14 +170,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginLeft: 20,
     marginVertical: 15,
-    color: "#d6d6d6",
+    color: "#f3f3f3",
   },
 
   spriteTipo: {
     aspectRatio: 200 / 44,
-    width: "40%",
+    width: "27%",
     height: "auto",
     resizeMode: "contain",
+    padding: 25,
     marginLeft: 20,
   },
 
