@@ -22,11 +22,21 @@ async function pegarDadosPoke(index) {
   }
 }
 
+async function pegarSpriteTiposPoke(type) {
+  const data = await fetch(`https://pokeapi.co/api/v2/type/${type}`);
+
+  if (data.status == 200) {
+    const typeInfo = await data.json();
+    return typeInfo.sprites["generation-viii"]["sword-shield"].name_icon;
+  }
+}
+
 export default function App() {
   const [index, setIndex] = useState(1);
   const [name, setName] = useState("");
   const [types, setTypes] = useState([]);
   const [sprite, setSprite] = useState("");
+  const [spriteTypes, setSpriteTypes] = useState([]);
 
   useEffect(() => {
     pegarDadosPoke(index).then((info) => {
@@ -34,6 +44,17 @@ export default function App() {
       setTypes(info.types);
       setSprite(info.sprite_url);
     });
+
+    async function alocarSprites() {
+      const newSpriteTypes = await Promise.all(
+        types.map((type) => pegarSpriteTiposPoke(type)),
+      );
+
+      setSpriteTypes(newSpriteTypes);
+      console.log(newSpriteTypes);
+    }
+
+    alocarSprites();
   }, [index]);
 
   // lembrete: encadear funções faz o valor de cada uma delas ser retornado para a próxima, e iso pode causar diversos problemas.
@@ -55,8 +76,8 @@ export default function App() {
 
       <View style={styles.containerInfoPokemon}>
         <Text style={styles.textoInfoPokemon}>Espécie: {name}</Text>
-        <Text style={styles.textoInfoPokemon}>Tipo 1: {types[0]}</Text>
-        <Text style={styles.textoInfoPokemon}>Tipo 2: {types[1]}</Text>
+        <Image style={styles.spriteTipo} source={{ uri: spriteTypes[0] }} />
+        <Image style={styles.spriteTipo} source={{ uri: spriteTypes[1] }} />
       </View>
 
       <View style={styles.containerBtn}>
@@ -151,6 +172,14 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginVertical: 15,
     color: "#d6d6d6",
+  },
+
+  spriteTipo: {
+    aspectRatio: 200 / 44,
+    width: "40%",
+    height: "auto",
+    resizeMode: "contain",
+    marginLeft: 20,
   },
 
   containerBtn: {
