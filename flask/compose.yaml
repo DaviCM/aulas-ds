@@ -1,0 +1,28 @@
+services:
+  backend:
+    container_name: backend
+    build: 
+      dockerfile: ./Dockerfile
+    env_file:
+      - ./.env
+    depends_on:
+      - postgres
+    ports:
+      # Mapeia uma porta do container para uma porta da máquina.
+      - "5000:5000" 
+
+  postgres:
+    image: postgres:18.4
+    container_name: postgres
+    env_file:
+      - ./.env
+    volumes:
+      # Volume onde o postgres salva dados, para persistir mesmo com docker compose down.
+      - postgres_data:/var/lib/postgresql/18/docker 
+    expose:
+      # Expõe a porta para os demais contêineres, mas não para a máquina.
+      - 5432
+
+# Volumes são utilizados para persistir os dados salvos nos contêineres.
+volumes:
+  postgres_data:
