@@ -2,10 +2,10 @@ from sqlalchemy import Column, Integer, String
 
 from src.database.base import Base
 
-class Usuario(Base):
-    __tablename__ = "usuarios"
+class User(Base):
+    __tablename__ = "users"
 
     id = Column(Integer, primary_key=True)
-    nome = Column(String(120), nullable=False, unique=True)
+    name = Column(String(120), nullable=False, unique=True)
     email = Column(String(120), nullable=False, unique=True)
-    senha = Column(String(255), nullable=False)
+    password = Column(String(255), nullable=False)
