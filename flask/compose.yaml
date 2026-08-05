@@ -7,6 +7,9 @@ services:
       - ./.env
     depends_on:
       - postgres
+    expose:
+      # Expõe a porta para os demais contêineres, mas não para a máquina.
+      - 5000
     ports:
       # Mapeia uma porta do container para uma porta da máquina.
       - "5002:5000" 
@@ -20,7 +23,6 @@ services:
       # Volume onde o postgres salva dados, para persistir mesmo com docker compose down.
       - postgres_data:/var/lib/postgresql/18/docker 
     expose:
-      # Expõe a porta para os demais contêineres, mas não para a máquina.
       - 5432
 
 # Volumes são utilizados para persistir os dados salvos nos contêineres.
