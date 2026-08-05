@@ -1,6 +1,6 @@
 services:
   backend:
-    container_name: backend
+    container_name: backend_davicm
     build: 
       dockerfile: ./Dockerfile
     env_file:
@@ -13,7 +13,7 @@ services:
 
   postgres:
     image: postgres:18.4
-    container_name: postgres
+    container_name: postgres_davicm
     env_file:
       - ./.env
     volumes:
