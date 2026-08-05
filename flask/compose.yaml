@@ -9,7 +9,7 @@ services:
       - postgres
     ports:
       # Mapeia uma porta do container para uma porta da máquina.
-      - "5000:5000" 
+      - "5002:5000" 
 
   postgres:
     image: postgres:18.4
