@@ -1,11 +1,9 @@
-from sqlalchemy import Column, Integer, String
+from src.database.connection import db
 
-from src.database.base import Base
-
-class User(Base):
+class User(db.Model):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String(120), nullable=False, unique=True)
-    email = Column(String(120), nullable=False, unique=True)
-    password = Column(String(255), nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    email = db.Column(db.String(120), nullable=False, unique=True)
+    password = db.Column(db.String(255), nullable=False)

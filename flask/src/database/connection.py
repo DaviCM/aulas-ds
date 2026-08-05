@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-db = SQLAlchemy(engine_options=
+db: SQLAlchemy = SQLAlchemy(engine_options=
                       {"url": getenv("DATABASE_URL"),
                        "echo": True,
                        "pool_pre_ping": True,
