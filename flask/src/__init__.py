@@ -5,12 +5,10 @@ from dotenv import load_dotenv
 
 from src.database.connection import db
 
-
 load_dotenv()
 
 class Config():
     SQLALCHEMY_DATABASE_URI = getenv("DATABASE_URL")  
-
 
 
 def create_app():
@@ -20,11 +18,3 @@ def create_app():
     db.init_app(app)
     
     return app
-
-
-app = create_app()
-
-@app.route(rule="/status", methods=["GET"])
-def status():
-    return {"status": 200}
-
