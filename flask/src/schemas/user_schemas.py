@@ -1,10 +1,26 @@
-from src.extensions.ma import ma
-from src.models.user_model import User
+from marshmallow import Schema, fields, validate as v
 
-class UserSchema(ma.SQLAlchemyAutoSchema):
-    class Meta:
-        model = User
-        load_instance = True
+class CreateUserSchema(Schema):
+    name = fields.Str(validate=v.Length(max=120), required=True)
+    email = fields.Str(validate=v.Length(max=120), required=True)
+    password = fields.Str(validate=v.Length(max=255), required=True)
 
-    id = ma.auto_field(dump_only=True)
-    password = ma.auto_field(load_only=True)
+
+
+class UpdateUserSchema(Schema):
+    name = fields.Str(validate=v.Length(max=120), required=True, allow_none=True)
+    email = fields.Str(validate=v.Length(max=120), required=True, allow_none=True)
+    password = fields.Str(validate=v.Length(max=255), required=True, allow_none=True)
+
+
+
+class ResponseUserSchema(Schema):
+    id = fields.Int(allow_none=True, required=False)
+    name = fields.Str(validate=v.Length(max=120), required=True)
+    email = fields.Str(validate=v.Length(max=120), required=True)
+
+
+
+create_user_schema = CreateUserSchema()
+update_user_schema = UpdateUserSchema()
+response_user_schema = ResponseUserSchema()

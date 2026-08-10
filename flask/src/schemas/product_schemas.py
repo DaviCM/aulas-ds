@@ -1,10 +1,30 @@
-from src.extensions.ma import ma
-from src.models.product_model import Product
+from marshmallow import Schema, fields, validate as v
 
-class ProductSchema(ma.SQLAlchemyAutoSchema):
-    class Meta:
-        model = Product
-        load_instance = True
-        include_relationships = True
+class CreateProductSchema(Schema):
+    description = fields.Str(validate=v.Length(max=120), required=True)
+    category = fields.Str(validate=v.Length(max=120), required=True)
+    quantity = fields.Int(required=True)
+    value = fields.Decimal(required=True)
 
-    id = ma.auto_field(dump_only=True)
+
+
+class UpdateProductSchema(Schema):
+    description = fields.Str(validate=v.Length(max=120), required=True, allow_none=True)
+    category = fields.Str(validate=v.Length(max=120), required=True, allow_none=True)
+    quantity = fields.Int(required=True, allow_none=True)
+    value = fields.Decimal(required=True, allow_none=True)
+
+
+
+class ResponseProductSchema(Schema):
+    id = fields.Int(required=True)
+    description = fields.Str(validate=v.Length(max=120), required=True)
+    category = fields.Str(validate=v.Length(max=120), required=True)
+    quantity = fields.Int(required=True)
+    value = fields.Decimal(required=True)
+
+
+
+create_product_schema = CreateProductSchema()
+update_product_schema = UpdateProductSchema()
+response_product_schema = ResponseProductSchema()

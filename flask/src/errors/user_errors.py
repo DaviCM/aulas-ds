@@ -7,10 +7,10 @@ class InvalidUserError(AppError):
 
 
 
-class UserUnauthorizedError(AppError):
+class InvalidCredentialsError(AppError):
     code = 401
-    name = "USER_UNAUTHORIZED_ERROR"
-    detail = "O usuário não possui permissão para realizar essa operação."
+    name = "INVALID_CREDENTIALS_ERROR"
+    detail = "As credenciais fornecidas são inválidas. Por favor, tente novamente."
 
 
 

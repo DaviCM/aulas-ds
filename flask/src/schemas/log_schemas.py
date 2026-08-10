@@ -1,12 +1,12 @@
-from src.extensions.ma import ma
-from src.models.log_model import Log
+from marshmallow import Schema, fields
 
-class LogSchema(ma.SQLAlchemyAutoSchema):
-    class Meta:
-        model = Log
-        load_instance = True
-        include_relationships = True
-        include_fk = True
+class ResponseLogSchema(Schema):
+    id = fields.Int(required=True)
+    type = fields.Bool(required=True)
+    quantity = fields.Int(required=True)
+    logged_at = fields.DateTime(required=True)
+    product_id = fields.Int(required=True)
 
-    id = ma.auto_field(dump_only=True)
-    product_id = ma.auto_field(dump_only=True)
+
+
+response_log_schema = ResponseLogSchema()
