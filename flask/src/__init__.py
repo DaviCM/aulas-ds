@@ -3,8 +3,10 @@ from os import getenv
 from flask import Flask
 from dotenv import load_dotenv
 
+from src.extensions.api import api
 from src.extensions.db import db
 from src.extensions.ma import ma
+from src.errors.app_errors import AppError
 
 load_dotenv()
 
@@ -19,5 +21,14 @@ def create_app():
 
     db.init_app(app)
     ma.init_app(app)
+    api.init_app(app)
+
+    @app.errorhandler(AppError)
+    def handle_app_error(error: AppError):
+        return {
+            "status_code": error.code,
+            "error": error.name,
+            "detail": error.detail
+        }, error.code
 
     return app
