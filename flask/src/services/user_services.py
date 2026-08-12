@@ -1,12 +1,9 @@
-from marshmallow import ValidationError
-
 from src.models.user_model import User
-from src.schemas.user_schemas import create_user_schema, response_user_schema
+from src.schemas.user_schemas import CreateUserSchema, UpdateUserSchema
 from src.services.email_services import *
 from src.services.password_services import *
 from src.errors.user_errors import *
 from src.extensions.db import db
-
 
 def get_user_by_id(id: int) -> User:
     stmt = db.select(User).where(User.id == id)
@@ -18,25 +15,23 @@ def get_user_by_id(id: int) -> User:
         return target_user
 
 
-
-def create_user(data: dict):
-    if email_already_exists(data["email"] == True):
+def create_user(data: CreateUserSchema) -> User:
+    if email_already_exists(data.fields["email"] == True):
         raise InvalidUserError
 
-    if verify_email(data["email"] == False):
+    if verify_email(data.fields["email"] == False):
         raise InvalidUserError
 
     new_user = User(
-        name=data["name"],
-        email=data["email"],
-        password=hash_password(data["password"]),
+        name=data.fields["name"],
+        email=data.fields["email"],
+        password=hash_password(data.fields["password"]),
     )
 
     db.session.add(new_user)
     db.session.commit()
 
-    return response_user_schema.dump(new_user)
-
+    return new_user
 
 
 def login(target_email: str, target_password: str) -> User:
@@ -52,30 +47,28 @@ def login(target_email: str, target_password: str) -> User:
     return logged_user
 
 
-
-def update_user(id: int, data: dict):
-    to_edit = get_user_by_id(id)
+def update_user(data: UpdateUserSchema) -> User:
+    to_edit = get_user_by_id(data.fields["id"])
     
-    if (data["email"] != None) and (email_already_exists(data["email"]) == True):
+    if (data.fields["email"] != None) and (email_already_exists(data.fields["email"]) == True):
         raise InvalidUserError
 
-    if (data["email"] != None) and (verify_email(data["email"]) == False):
+    if (data.fields["email"] != None) and (verify_email(data.fields["email"]) == False):
         raise InvalidUserError
 
-    if data["name"] != None:
-       to_edit.name = data["name"]
+    if data.fields["name"] != None:
+       to_edit.name = data.fields["name"]
 
-    if data["email"] != None:
-        to_edit.name = data["email"]
+    if data.fields["email"] != None:
+        to_edit.email = data.fields["email"]
 
-    if data["password"] != None:
-        to_edit.name = hash_password(data["password"])
+    if data.fields["password"] != None:
+        to_edit.password = hash_password(data.fields["password"])
 
     db.session.commit()
     db.session.flush()
 
-    return response_user_schema.dump(to_edit)
-
+    return to_edit
 
 
 def delete_user(id: int):
