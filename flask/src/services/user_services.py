@@ -51,7 +51,7 @@ def update_user(data: UpdateUserSchema) -> User:
     to_edit = get_user_by_id(data.fields["id"])
     
     if (data.fields["email"] != None) and (email_already_exists(data.fields["email"]) == True):
-        raise InvalidUserError
+        raise UserAlreadyExistsError
 
     if (data.fields["email"] != None) and (verify_email(data.fields["email"]) == False):
         raise InvalidUserError

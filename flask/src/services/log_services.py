@@ -1,12 +1,8 @@
-from typing import Literal
-from datetime import datetime
-
 from src.models.log_model import Log
 from src.models.product_model import Product
-from src.models.user_model import User
 from src.schemas.log_schemas import QueryLogSchema
+from src.errors.log_errors import LogNotFoundError
 from src.errors.product_errors import ProductNotFoundError
-from src.errors.user_errors import UserNotFoundError
 from src.extensions.db import db
 
 def create_log(target_product: Product, type: bool, quantity: int) -> Log:
@@ -50,5 +46,8 @@ def list_logs(params: QueryLogSchema) -> list[Log]:
 
     logs = db.session.scalars(stmt).all()
 
-    return logs
+    if logs == []:
+        raise LogNotFoundError
+    else:
+        return logs
 

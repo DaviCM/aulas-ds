@@ -5,7 +5,6 @@ from src.models.user_model import User
 from src.schemas.product_schemas import *
 from src.services.log_services import create_log
 from src.errors.product_errors import *
-from src.errors.user_errors import UserNotFoundError
 from src.extensions.db import db
 
 def get_product_by_id(id: int) -> Product:
@@ -22,7 +21,7 @@ def verify_product_description(target_description: str) -> Literal[True]:
     stmt = db.select(Product).where(Product.description == target_description)
     target_product = db.session.scalar(stmt)
 
-    if target_product == None:
+    if target_product != None:
         raise ProductAlreadyExistsError
     else:
         return True
@@ -42,6 +41,8 @@ def create_product(data: CreateProductSchema) -> Product:
 
     db.session.add(new_product)
     db.session.commit()
+
+    create_log(target_product=new_product, type=True, quantity=data.fields["quantity"])
 
     return new_product
 
@@ -88,13 +89,18 @@ def update_product(data: UpdateProductSchema) -> Product:
         to_edit.category = data.fields["category"]
 
     if data.fields["quantity"] != None:
+        old_quantity = to_edit
+        transaction_type = True if data.fields["quantity"] > to_edit.quantity else False
+
         to_edit.quantity = data.fields["quantity"]
+        create_log(target_product=to_edit, type=transaction_type, quantity=(data.fields["quantity"] - old_quantity))
 
     if data.fields["value"] != None:
         to_edit.value = data.fields["value"]
 
     db.session.commit()
     db.session.flush()
+
 
     return to_edit
 

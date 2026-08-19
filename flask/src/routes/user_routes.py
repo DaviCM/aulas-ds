@@ -24,7 +24,7 @@ class UserRoutes(Resource):
             schema:
               $ref: "#/definitions/ResponseUser"
           400:
-            description: As informações de usuário fornecidas são inválidas. Por favor, tente novamente.
+            description: As informações de usuário fornecidas são inválidas.
             schema:
               type: object
             properties:
@@ -35,7 +35,7 @@ class UserRoutes(Resource):
               detail:
                 type: string
           409:
-            description: "O usuário já está cadastrado. Por favor, tente realizar login ou cadastrar outro usuário."
+            description: O usuário já está cadastrado.
             schema:
               type: object
             properties:
@@ -66,7 +66,7 @@ class UserRoutes(Resource):
             schema:
               $ref: "#/definitions/ResponseUser"
           400:
-            description: As informações de usuário fornecidas são inválidas. Por favor, tente novamente.
+            description: As informações de usuário fornecidas são inválidas.
             schema:
               type: object
             properties:
@@ -77,7 +77,18 @@ class UserRoutes(Resource):
               detail:
                 type: string
           404:
-            description: O usuário requisitado não foi encontrado. Por favor, tente novamente.
+            description: O usuário requisitado não foi encontrado.
+            schema:
+              type: object
+            properties:
+              status_code:
+                type: int
+              error:
+                type: string
+              detail:
+                type: string
+          409:
+            description: O usuário já está cadastrado.
             schema:
               type: object
             properties:
@@ -104,19 +115,8 @@ class UserRoutes(Resource):
         responses:
           201:
             description: O usuário requisitado foi excluído com sucesso.
-          400:
-            description: As informações de usuário fornecidas são inválidas. Por favor, tente novamente.
-            schema:
-              type: object
-            properties:
-              status_code:
-                type: int
-              error:
-                type: string
-              detail:
-                type: string
           404:
-            description: O usuário requisitado não foi encontrado. Por favor, tente novamente.
+            description: O usuário requisitado não foi encontrado.
             schema:
               type: object
             properties:
@@ -150,7 +150,7 @@ class UserLogin(Resource):
             schema:
               $ref: "#/definitions/ResponseUser"
           401:
-            description: As credenciais fornecidas são inválidas. Por favor, tente novamente.
+            description: As credenciais fornecidas são inválidas.
             schema:
               type: object
             properties:
@@ -161,7 +161,7 @@ class UserLogin(Resource):
               detail:
                 type: string
           404:
-            description: O usuário requisitado não foi encontrado. Por favor, tente novamente.
+            description: O usuário requisitado não foi encontrado.
             schema:
               type: object
             properties:
