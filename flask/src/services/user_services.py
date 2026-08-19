@@ -17,7 +17,7 @@ def get_user_by_id(id: int) -> User:
 
 def create_user(data: CreateUserSchema) -> User:
     if email_already_exists(data.fields["email"] == True):
-        raise InvalidUserError
+        raise UserAlreadyExistsError
 
     if verify_email(data.fields["email"] == False):
         raise InvalidUserError
